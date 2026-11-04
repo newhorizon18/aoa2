@@ -1,5 +1,5 @@
 
-# Experiment No. 1 – Insertion Sort
+# Experiment No. 2 – Binary Search
 
 **Created By:** Krish Mhatre
 
@@ -9,35 +9,30 @@
 #include <stdio.h>
 
 int main() {
-    int a[100], n, i, j, key;
+    int a[] = {10, 20, 30, 40, 50, 60, 70};
+    int n = 7, key, low = 0, high = n - 1;
+    int mid, pos = -1;
 
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+    printf("Enter element to search: ");
+    scanf("%d", &key);
 
-    if(n < 1 || n > 100) {
-        printf("Invalid number of elements");
-        return 1;
-    }
+    while(low <= high) {
+        mid = (low + high) / 2;
 
-    printf("Enter elements: ");
-    for(i = 0; i < n; i++)
-        scanf("%d", &a[i]);
-
-    for(i = 1; i < n; i++) {
-        key = a[i];
-        j = i - 1;
-
-        while(j >= 0 && a[j] > key) {
-            a[j + 1] = a[j];
-            j--;
+        if(a[mid] == key) {
+            pos = mid;
+            break;
         }
-
-        a[j + 1] = key;
+        else if(a[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
     }
 
-    printf("Sorted Array: ");
-    for(i = 0; i < n; i++)
-        printf("%d ", a[i]);
+    if(pos == -1)
+        printf("Element not found.");
+    else
+        printf("Element found at index %d.", pos);
 
     return 0;
 }
@@ -46,62 +41,60 @@ int main() {
 ## Terminal Input (Copy and Paste)
 
 ```text
-6
-12 5 18 2 9 7
+50
 ```
 
 ## Output
 
 ```text
-PS C:\AOA> gcc insertion.c -o insertion
-PS C:\AOA> .\insertion.exe
+PS C:\AOA> gcc binary.c -o binary
+PS C:\AOA> .\binary.exe
 
-Enter number of elements: 6
-Enter elements: 12 5 18 2 9 7
-
-Sorted Array: 2 5 7 9 12 18
+Enter element to search: 50
+Element found at index 4.
 ```
 
 ## Aim
-To implement Insertion Sort using C.
+To implement Binary Search using C.
 
 ## Theory
-Insertion Sort is a simple sorting algorithm that arranges elements in ascending order.
+Binary Search is a searching algorithm used to find an element in a sorted array.
 
-It works by taking one element at a time and inserting it into its correct position in the sorted part of the array.
+It repeatedly divides the search range into two halves until the element is found.
 
 ## Algorithm
-1. Start from the second element.
-2. Store the current element in key.
-3. Compare it with previous elements.
-4. Shift larger elements to the right.
-5. Insert the key at the correct position.
-6. Repeat until the array is sorted.
+1. Start with a sorted array.
+2. Enter the element to search.
+3. Find the middle element.
+4. If the key matches, return its index.
+5. If the key is greater, search the right half.
+6. Otherwise, search the left half.
+7. Display the result.
 
 ## How to Run
 
-Save as `insertion.c`.
+Save as `binary.c`.
 
 Compile:
 
 ```bash
-gcc insertion.c -o insertion
+gcc binary.c -o binary
 ```
 
 Run:
 
 ```powershell
-.\insertion.exe
+.\binary.exe
 ```
 
 Paste the input from the Terminal Input section.
 
 ## Time Complexity
 
-- Best Case: O(n)
-- Average Case: O(n²)
-- Worst Case: O(n²)
+- Best Case: O(1)
+- Average Case: O(log n)
+- Worst Case: O(log n)
 - Space Complexity: O(1)
 
 ## Conclusion
-Successfully implemented Insertion Sort in C to arrange the given elements in ascending order.
+Successfully implemented Binary Search in C to find an element in a sorted array.
